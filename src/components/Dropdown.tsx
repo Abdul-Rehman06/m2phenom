@@ -57,7 +57,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             exit={{ opacity: 0, scale: 0.95, y: -5 }}
             transition={{ duration: 0.15, ease: 'easeOut' }}
             className={cn(
-              'absolute z-50 mt-2 w-56 rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none',
+              'absolute z-50 mt-2 w-56 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none',
               alignmentClasses[align],
               className
             )}
@@ -78,8 +78,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     item.disabled
                       ? 'opacity-50 cursor-not-allowed text-gray-400'
                       : item.danger
-                      ? 'text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20'
-                      : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
+                      ? 'text-red-600 hover:bg-red-50'
+                      : 'text-gray-700 hover:bg-gray-100'
                   )}
                   role="menuitem"
                 >
