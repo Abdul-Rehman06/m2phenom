@@ -9,36 +9,29 @@ if ($gitStatus) {
   exit 1
 }
 
+$origin = (git config --get remote.origin.url).Trim()
+if (-not $origin) {
+  Write-Host 'Missing git remote "origin". Add origin first.' -ForegroundColor Red
+  exit 1
+}
+
 npm run build
 
-$tempDir = Join-Path $root '.deploy-tmp'
-if (Test-Path $tempDir) {
-  Remove-Item -Recurse -Force $tempDir
+$deployDir = Join-Path $root '.deploy-branch'
+if (Test-Path $deployDir) {
+  Remove-Item -Recurse -Force $deployDir
 }
-New-Item -ItemType Directory -Path $tempDir | Out-Null
-Copy-Item -Path (Join-Path $root 'dist\*') -Destination $tempDir -Recurse -Force
+New-Item -ItemType Directory -Path $deployDir | Out-Null
 
-$currentBranch = (git branch --show-current).Trim()
-if (-not $currentBranch) {
-  $currentBranch = 'main'
-}
+Copy-Item -Path (Join-Path $root 'dist\*') -Destination $deployDir -Recurse -Force
 
-$deployExists = $false
-git show-ref --verify --quiet refs/heads/deploy
-if ($LASTEXITCODE -eq 0) { $deployExists = $true }
-
-if ($deployExists) {
-  git branch -D deploy
-}
-
-git checkout --orphan deploy
-Get-ChildItem -Force | Where-Object { $_.Name -ne '.git' } | Remove-Item -Recurse -Force
-
-Copy-Item -Path (Join-Path $tempDir '*') -Destination $root -Recurse -Force
-Remove-Item -Recurse -Force $tempDir
-
+Set-Location $deployDir
+git init | Out-Null
 git add -A
-git commit -m ("Deploy " + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'))
+git commit -m ("Deploy " + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')) | Out-Null
+git branch -M deploy | Out-Null
+git remote add origin $origin | Out-Null
 git push -f origin deploy
 
-git checkout $currentBranch
+Set-Location $root
+Remove-Item -Recurse -Force $deployDir
