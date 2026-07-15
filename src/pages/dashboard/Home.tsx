@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Button, Card, PageTransition } from '@/components';
 import { ContentWrapper } from '@/layouts';
 import { APP_CONFIG } from '@/constants';
+import headSetImg from '@/assets/head-set.png';
 
 export function Home() {
   const steps = [
@@ -220,7 +221,7 @@ export function Home() {
             <Card className="p-6 flex-1 hover:shadow-md transition-shadow relative overflow-hidden bg-surface">
               {/* Headphones Image BG */}
               <div className="absolute right-[20px] top-1/2 -translate-y-1/2 opacity-90">
-                <img src="src\assets\head-set.png" className="w-50 h-50 object-contain drop-shadow-2xl mix-blend-multiply" alt="headphones" style={{ filter: 'drop-shadow(0 20px 13px rgba(0,0,0,0.15))' }} />
+                <img src={headSetImg} className="w-50 h-50 object-contain drop-shadow-2xl mix-blend-multiply" alt="headphones" style={{ filter: 'drop-shadow(0 20px 13px rgba(0,0,0,0.15))' }} />
               </div>
 
               <div className="relative z-10 w-2/3">

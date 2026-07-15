@@ -33,9 +33,9 @@ export function EditClient() {
   const [showMonitoringPwd, setShowMonitoringPwd] = useState(false);
 
   // Document states
-  const [photoIdPreview, setPhotoIdPreview] = useState<string | null>("/public/images.jpg");
-  const [ssnPreview, setSsnPreview] = useState<string | null>("/public/socialsecurity.jpg");
-  const [proofPreview, setProofPreview] = useState<string | null>("/public/images (1).jpg");
+  const [photoIdPreview, setPhotoIdPreview] = useState<string | null>("/images.jpg");
+  const [ssnPreview, setSsnPreview] = useState<string | null>("/socialsecurity.jpg");
+  const [proofPreview, setProofPreview] = useState<string | null>("/images%20(1).jpg");
   const [otherDocs, setOtherDocs] = useState<{id: string, url: string}[]>([]);
 
   // Refs for hidden inputs
