@@ -16,6 +16,12 @@ if (-not $origin) {
 }
 
 npm run build
+if ($LASTEXITCODE -ne 0) {
+  node (Join-Path $root 'node_modules\typescript\bin\tsc') -b
+  if ($LASTEXITCODE -ne 0) { exit 1 }
+  node (Join-Path $root 'node_modules\vite\bin\vite.js') build
+  if ($LASTEXITCODE -ne 0) { exit 1 }
+}
 
 $deployDir = Join-Path $root '.deploy-branch'
 if (Test-Path $deployDir) {
@@ -27,6 +33,10 @@ Copy-Item -Path (Join-Path $root 'dist\*') -Destination $deployDir -Recurse -For
 
 Set-Location $deployDir
 git init | Out-Null
+$userName = (git -C $root config user.name).Trim()
+$userEmail = (git -C $root config user.email).Trim()
+if ($userName) { git config user.name $userName | Out-Null }
+if ($userEmail) { git config user.email $userEmail | Out-Null }
 git add -A
 git commit -m ("Deploy " + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')) | Out-Null
 git branch -M deploy | Out-Null
