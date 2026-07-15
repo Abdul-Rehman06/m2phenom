@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "publish:deploy": "powershell -ExecutionPolicy Bypass -File scripts/publish-deploy.ps1",
     "lint": "eslint .",
     "preview": "vite preview"
   },
