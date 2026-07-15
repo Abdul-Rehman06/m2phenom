@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node node_modules/vite/bin/vite.js",
     "build": "node node_modules/typescript/bin/tsc -b && node node_modules/vite/bin/vite.js build",
-    "publish:deploy": "npm run build && gh-pages -d dist -b deploy -m \"Deploy update\"",
+    "publish:deploy": "npm run build && gh-pages -d dist -b deploy -m \"Deploy update\" -t",
     "lint": "eslint .",
     "preview": "node node_modules/vite/bin/vite.js preview"
   },
