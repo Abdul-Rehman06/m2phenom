@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { 
   MousePointerClick, 
   ShoppingCart, 
@@ -41,7 +41,31 @@ const StatCard = ({ title, value, subtitle, icon: Icon, trend }: any) => (
 
 export function AffiliateManager() {
   const { addToast } = useUIStore();
-  const [chartTab, setChartTab] = useState('Daily');
+  const [chartTab, setChartTab] = useState('Monthly');
+
+  const mockData = useMemo(() => {
+    switch (chartTab) {
+      case 'Daily': return [10, 25, 15, 40, 35, 60, 50];
+      case 'Weekly': return [120, 250, 180, 300];
+      case 'Monthly': return [10, 15, 12, 25, 20, 35, 30, 45, 40, 55, 50, 65, 60, 75, 70, 85, 80, 95, 90, 100, 85, 75, 65, 55, 45, 35, 25, 15, 20, 30];
+      case 'Custom': return [50, 45, 60, 55, 70, 65, 80, 90];
+      default: return [];
+    }
+  }, [chartTab]);
+
+  const maxDataValue = Math.max(...mockData, 100);
+
+  const xAxisLabels = useMemo(() => {
+    switch (chartTab) {
+      case 'Daily': return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      case 'Weekly': return ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+      case 'Monthly': return ['01 Jun', '05 Jun', '10 Jun', '15 Jun', '20 Jun', '25 Jun', '30 Jun'];
+      case 'Custom': return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'];
+      default: return [];
+    }
+  }, [chartTab]);
+
+  const totalEarnings = useMemo(() => mockData.reduce((a, b) => a + b, 0), [mockData]);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -96,8 +120,8 @@ export function AffiliateManager() {
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                 <div>
                   <h2 className="text-sm font-bold text-gray-900">Total Earnings</h2>
-                  <div className="text-2xl font-extrabold text-gray-900 mt-1">$0</div>
-                  <div className="text-xs text-gray-500 mt-1">Total Earnings Daily</div>
+                  <div className="text-2xl font-extrabold text-gray-900 mt-1">${totalEarnings.toLocaleString()}</div>
+                  <div className="text-xs text-gray-500 mt-1">Total Earnings {chartTab}</div>
                 </div>
                 <div className="flex bg-gray-100 p-1 rounded-lg">
                   {['Daily', 'Weekly', 'Monthly', 'Custom'].map(tab => (
@@ -114,43 +138,70 @@ export function AffiliateManager() {
                 </div>
               </div>
 
-              {/* Mock Chart Area */}
-              <div className="flex-1 relative w-full mt-4 border-l border-b border-gray-100 flex items-end">
-                {/* Y-axis labels */}
-                <div className="absolute -left-6 top-0 bottom-0 flex flex-col justify-between text-[10px] text-gray-400 py-2">
-                  <span>1</span>
-                  <span>0.8</span>
-                  <span>0.6</span>
-                  <span>0.4</span>
-                  <span>0.2</span>
-                  <span>0</span>
-                </div>
-                
-                {/* Horizontal grid lines */}
-                <div className="absolute inset-0 flex flex-col justify-between pointer-events-none">
-                  {[...Array(6)].map((_, i) => (
-                    <div key={i} className="w-full border-b border-dashed border-gray-100 h-0" />
-                  ))}
+              {/* Working Chart Area */}
+              <div className="flex-1 flex flex-col mt-6">
+                <div className="flex-1 flex">
+                  {/* Y-axis labels */}
+                  <div className="w-12 flex flex-col justify-between text-[10px] text-gray-400 py-0 pr-3 text-right">
+                    <span>${maxDataValue}</span>
+                    <span>${Math.round(maxDataValue * 0.8)}</span>
+                    <span>${Math.round(maxDataValue * 0.6)}</span>
+                    <span>${Math.round(maxDataValue * 0.4)}</span>
+                    <span>${Math.round(maxDataValue * 0.2)}</span>
+                    <span>$0</span>
+                  </div>
+                  
+                  {/* Chart Grid & SVG */}
+                  <div className="flex-1 relative border-l border-b border-gray-100">
+                    {/* Horizontal grid lines */}
+                    <div className="absolute inset-0 flex flex-col justify-between pointer-events-none">
+                      {[...Array(6)].map((_, i) => (
+                        <div key={i} className="w-full border-b border-dashed border-gray-100 h-0" />
+                      ))}
+                    </div>
+                    
+                    {/* SVG Line & Area */}
+                    <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full z-10 pointer-events-none">
+                      <defs>
+                        <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#f97316" stopOpacity="0.2" />
+                          <stop offset="100%" stopColor="#f97316" stopOpacity="0" />
+                        </linearGradient>
+                      </defs>
+                      <polygon
+                        fill="url(#chartGradient)"
+                        points={`0,100 ${mockData.map((val, i) => `${(i / (mockData.length - 1)) * 100},${100 - (val / maxDataValue) * 100}`).join(' ')} 100,100`}
+                      />
+                      <polyline
+                        fill="none"
+                        stroke="#f97316"
+                        strokeWidth="2"
+                        vectorEffect="non-scaling-stroke"
+                        points={mockData.map((val, i) => `${(i / (mockData.length - 1)) * 100},${100 - (val / maxDataValue) * 100}`).join(' ')}
+                      />
+                    </svg>
+
+                    {/* Data Points (Dots) */}
+                    <div className="absolute inset-0 z-20">
+                      {mockData.map((val, i) => (
+                        <div 
+                          key={i} 
+                          className="absolute w-2 h-2 rounded-full bg-primary-500 border border-white -ml-1 -mb-1 shadow-sm transition-transform hover:scale-150 cursor-pointer"
+                          style={{
+                            left: `${(i / (mockData.length - 1)) * 100}%`,
+                            bottom: `${(val / maxDataValue) * 100}%`
+                          }}
+                          title={`$${val}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                {/* The "Line" (flat at 0) */}
-                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary-500 z-10" />
-                
-                {/* X-axis labels (Mock days) */}
-                <div className="absolute -bottom-6 left-0 right-0 flex justify-between text-[8px] text-gray-400">
-                  <span>01 Jun</span>
-                  <span>05 Jun</span>
-                  <span>10 Jun</span>
-                  <span>15 Jun</span>
-                  <span>20 Jun</span>
-                  <span>25 Jun</span>
-                  <span>30 Jun</span>
-                </div>
-
-                {/* Data points (flat at 0) */}
-                <div className="absolute bottom-[-3px] left-0 right-0 flex justify-between px-1 z-20">
-                  {[...Array(30)].map((_, i) => (
-                    <div key={i} className="w-1.5 h-1.5 rounded-full bg-primary-600 border border-white" />
+                {/* X-axis labels */}
+                <div className="pl-12 flex justify-between text-[10px] text-gray-400 pt-3">
+                  {xAxisLabels.map((label, i) => (
+                    <span key={i}>{label}</span>
                   ))}
                 </div>
               </div>
