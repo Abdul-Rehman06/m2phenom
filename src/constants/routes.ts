@@ -59,6 +59,7 @@ export const ROUTES = {
   AFFILIATE: '/affiliate-manager',
   AFFILIATE_CLICKS: '/affiliate-manager/clicks',
   AFFILIATE_PLATFORM_CLICKS: '/affiliate-manager/clicks/:platform',
+  AFFILIATE_COMMISSIONS: '/affiliate-manager/commissions',
 } as const;
 
 export const ROUTE_NAMES: Record<string, string> = {
@@ -112,4 +113,5 @@ export const ROUTE_NAMES: Record<string, string> = {
   [ROUTES.AFFILIATE]: 'Affiliate Program',
   [ROUTES.AFFILIATE_CLICKS]: 'Click Details',
   [ROUTES.AFFILIATE_PLATFORM_CLICKS]: 'Platform Click Statistics',
+  [ROUTES.AFFILIATE_COMMISSIONS]: 'Referrals Commission',
 };
