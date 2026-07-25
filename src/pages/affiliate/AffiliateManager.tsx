@@ -46,8 +46,10 @@ const StatCard = ({ title, value, subtitle, icon: Icon, trend, onClick, clickabl
   </Card>
 );
 
+import { PayoutDetailsModal } from './PayoutDetailsModal';
+
 export function AffiliateManager() {
-  const { addToast } = useUIStore();
+  const { addToast, openModal } = useUIStore();
   const navigate = useNavigate();
   const [chartTab, setChartTab] = useState('Monthly');
   const [chartType, setChartType] = useState<'line' | 'bar'>('line');
@@ -333,7 +335,10 @@ export function AffiliateManager() {
                 </div>
               </div>
 
-              <Button className="w-full bg-brand-gradient text-white font-bold border-0">
+              <Button 
+                onClick={() => openModal(<PayoutDetailsModal />, 'md')}
+                className="w-full bg-brand-gradient text-white font-bold border-0"
+              >
                 Manage Payout Details
               </Button>
             </Card>
