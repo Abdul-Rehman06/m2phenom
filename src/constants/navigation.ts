@@ -122,3 +122,21 @@ export const SIDEBAR_NAV: NavItem[] = [
     path: ROUTES.TESTIMONIALS,
   },
 ];
+
+export const CLIENT_SIDEBAR_NAV: NavItem[] = [
+  {
+    title: 'Reports',
+    path: ROUTES.CLIENT_PORTAL.DASHBOARD,
+    icon: FileText,
+  },
+  {
+    title: 'Account',
+    path: ROUTES.CLIENT_PORTAL.ACCOUNT,
+    icon: Users,
+  },
+  {
+    title: 'Retrieve Your Letters',
+    path: ROUTES.CLIENT_PORTAL.LETTERS,
+    icon: MessageSquare,
+  },
+];

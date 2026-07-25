@@ -39,6 +39,17 @@ import { PlatformClickStats } from '@/pages/affiliate/PlatformClickStats';
 import { ReferralsCommission } from '@/pages/affiliate/ReferralsCommission';
 import { TotalReferrals } from '@/pages/affiliate/TotalReferrals';
 
+import { ClientAuthLayout } from '@/layouts/client/ClientAuthLayout';
+import { ClientLayout } from '@/layouts/client/ClientLayout';
+import { ClientLogin } from '@/pages/client-portal/auth/ClientLogin';
+import { ClientRegister } from '@/pages/client-portal/auth/ClientRegister';
+import { ClientResetPassword } from '@/pages/client-portal/auth/ClientResetPassword';
+import { ClientDashboard } from '@/pages/client-portal/dashboard/ClientDashboard';
+import { ClientAccount } from '@/pages/client-portal/account/ClientAccount';
+import { ClientLetters } from '@/pages/client-portal/letters/ClientLetters';
+
+import { ClientOnboarding } from '@/pages/client-portal/onboarding/ClientOnboarding';
+
 // Root wrapper to provide Router context to global overlays
 function RootWrapper() {
   return (
@@ -85,7 +96,9 @@ function PlaceholderPage() {
 }
 
 // Generate route objects dynamically from the ROUTE_NAMES dictionary
-const generatedRoutes = Object.keys(ROUTE_NAMES).map((path) => {
+const generatedRoutes = Object.keys(ROUTE_NAMES)
+  .filter(path => !path.startsWith('/client/'))
+  .map((path) => {
   const cleanPath = path === '/' ? undefined : path.replace(/^\//, '');
 
   if (path === ROUTES.USERS.MANAGE_PROFILES) {
@@ -355,6 +368,37 @@ const router = createBrowserRouter([
           }
         ]
       },
+      // Client Portal Authentication Routes
+      {
+        path: '/client/auth',
+        element: <ClientAuthLayout />,
+        children: [
+          {
+            path: 'login',
+            element: (
+              <PageTransition>
+                <ClientLogin />
+              </PageTransition>
+            )
+          },
+          {
+            path: 'register',
+            element: (
+              <PageTransition>
+                <ClientRegister />
+              </PageTransition>
+            )
+          },
+          {
+            path: 'reset-password',
+            element: (
+              <PageTransition>
+                <ClientResetPassword />
+              </PageTransition>
+            )
+          }
+        ]
+      },
       // Protected Application Routes
       {
         path: '/',
@@ -376,6 +420,27 @@ const router = createBrowserRouter([
                 )
               }
             ]
+          },
+          {
+            element: <ClientLayout />,
+            children: [
+              {
+                path: 'client/dashboard',
+                element: <ClientDashboard />
+              },
+              {
+                path: 'client/account',
+                element: <ClientAccount />
+              },
+              {
+                path: 'client/letters',
+                element: <ClientLetters />
+              }
+            ]
+          },
+          {
+            path: 'client/onboarding',
+            element: <ClientOnboarding />
           }
         ]
       }

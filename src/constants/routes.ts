@@ -61,6 +61,12 @@ export const ROUTES = {
   AFFILIATE_PLATFORM_CLICKS: '/affiliate-manager/clicks/:platform',
   AFFILIATE_COMMISSIONS: '/affiliate-manager/commissions',
   AFFILIATE_REFERRALS: '/affiliate-manager/referrals',
+  CLIENT_PORTAL: {
+    DASHBOARD: '/client/dashboard',
+    ACCOUNT: '/client/account',
+    LETTERS: '/client/letters',
+    ONBOARDING: '/client/onboarding',
+  }
 } as const;
 
 export const ROUTE_NAMES: Record<string, string> = {
@@ -115,5 +121,10 @@ export const ROUTE_NAMES: Record<string, string> = {
   [ROUTES.AFFILIATE_CLICKS]: 'Click Details',
   [ROUTES.AFFILIATE_PLATFORM_CLICKS]: 'Platform Click Statistics',
   [ROUTES.AFFILIATE_COMMISSIONS]: 'Referrals Commission',
-  [ROUTES.AFFILIATE_REFERRALS]: 'Referrals',
+  [ROUTES.AFFILIATE_REFERRALS]: 'Total Referrals',
+
+  [ROUTES.CLIENT_PORTAL.DASHBOARD]: 'Reports',
+  [ROUTES.CLIENT_PORTAL.ACCOUNT]: 'Account',
+  [ROUTES.CLIENT_PORTAL.LETTERS]: 'Retrieve Your Letters',
+  [ROUTES.CLIENT_PORTAL.ONBOARDING]: 'Welcome Setup',
 };
