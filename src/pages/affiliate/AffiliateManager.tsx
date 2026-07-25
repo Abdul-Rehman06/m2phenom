@@ -1,4 +1,6 @@
 import { useState, useMemo } from 'react';
+import { ROUTES } from '@/constants';
+import { useNavigate } from 'react-router-dom';
 import { 
   MousePointerClick, 
   ShoppingCart, 
@@ -21,8 +23,11 @@ import { ContentWrapper } from '@/layouts';
 import { Card, Button, Input, PageTransition } from '@/components';
 import { useUIStore } from '@/store/useUIStore';
 
-const StatCard = ({ title, value, subtitle, icon: Icon, trend }: any) => (
-  <Card className="p-5 flex flex-col justify-between h-full bg-white border-border shadow-sm">
+const StatCard = ({ title, value, subtitle, icon: Icon, trend, onClick, clickable }: any) => (
+  <Card 
+    onClick={onClick}
+    className={`p-5 flex flex-col justify-between h-full bg-white border-border shadow-sm ${clickable ? 'cursor-pointer hover:shadow-md transition-all hover:-translate-y-1' : ''}`}
+  >
     <div className="flex justify-between items-start mb-4">
       <div className="w-10 h-10 rounded-full bg-primary-50 flex items-center justify-center text-primary-600 shrink-0">
         <Icon className="w-5 h-5" />
@@ -41,6 +46,7 @@ const StatCard = ({ title, value, subtitle, icon: Icon, trend }: any) => (
 
 export function AffiliateManager() {
   const { addToast } = useUIStore();
+  const navigate = useNavigate();
   const [chartTab, setChartTab] = useState('Monthly');
 
   const mockData = useMemo(() => {
@@ -104,7 +110,7 @@ export function AffiliateManager() {
 
         {/* Top Stats Row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-          <StatCard title="Clicks" value="0" subtitle="Total Clicks" icon={MousePointerClick} trend="0%" />
+          <StatCard title="Clicks" value="0" subtitle="Total Clicks" icon={MousePointerClick} trend="0%" onClick={() => navigate(ROUTES.AFFILIATE_CLICKS)} clickable />
           <StatCard title="Subscriptions" value="0" subtitle="Total Purchased Subscriptions" icon={ShoppingCart} trend="0%" />
           <StatCard title="Total Referrals" value="0" subtitle="Total Referrals" icon={Users} trend="0%" />
           <StatCard title="Total Commission" value="$0" subtitle="Total Commission" icon={DollarSign} trend="0%" />
