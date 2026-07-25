@@ -35,6 +35,7 @@ import { ManageEmailTemplates } from '@/pages/communication/ManageEmailTemplates
 import { JoinCommunity } from '@/pages/training/JoinCommunity';
 import { AffiliateManager } from '@/pages/affiliate/AffiliateManager';
 import { ClickDetails } from '@/pages/affiliate/ClickDetails';
+import { PlatformClickStats } from '@/pages/affiliate/PlatformClickStats';
 
 // Root wrapper to provide Router context to global overlays
 function RootWrapper() {
@@ -278,6 +279,13 @@ const generatedRoutes = Object.keys(ROUTE_NAMES).map((path) => {
     return {
       path: cleanPath,
       element: <ClickDetails />,
+    };
+  }
+
+  if (path === ROUTES.AFFILIATE_PLATFORM_CLICKS) {
+    return {
+      path: cleanPath,
+      element: <PlatformClickStats />,
     };
   }
 

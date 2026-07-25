@@ -58,6 +58,7 @@ export const ROUTES = {
   TESTIMONIALS: '/testimonials',
   AFFILIATE: '/affiliate-manager',
   AFFILIATE_CLICKS: '/affiliate-manager/clicks',
+  AFFILIATE_PLATFORM_CLICKS: '/affiliate-manager/clicks/:platform',
 } as const;
 
 export const ROUTE_NAMES: Record<string, string> = {
@@ -110,4 +111,5 @@ export const ROUTE_NAMES: Record<string, string> = {
   [ROUTES.TESTIMONIALS]: 'Metro2 Success Testimonials',
   [ROUTES.AFFILIATE]: 'Affiliate Program',
   [ROUTES.AFFILIATE_CLICKS]: 'Click Details',
+  [ROUTES.AFFILIATE_PLATFORM_CLICKS]: 'Platform Click Statistics',
 };
