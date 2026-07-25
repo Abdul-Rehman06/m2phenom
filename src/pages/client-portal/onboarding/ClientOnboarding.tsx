@@ -304,7 +304,7 @@ function Dropzone({ id, label, description, required, file, error, onSelect }: D
       if (candidate.size > MAX_FILE_MB * 1024 * 1024) {
         addToast({
           title: `${candidate.name} is larger than ${MAX_FILE_MB} MB. Upload a smaller file.`,
-          variant: 'error',
+          variant: 'danger',
         });
         return;
       }
@@ -506,7 +506,7 @@ export function ClientOnboarding() {
     const stepErrors = validateStep(currentStep, form);
     if (Object.keys(stepErrors).length > 0) {
       setErrors(stepErrors);
-      addToast({ title: 'Check the highlighted fields before continuing.', variant: 'error' });
+      addToast({ title: 'Check the highlighted fields before continuing.', variant: 'danger' });
       return;
     }
 
@@ -519,7 +519,7 @@ export function ClientOnboarding() {
         setCurrentStep(4);
         addToast({ title: 'Your profile is saved. Welcome aboard.', variant: 'success' });
       } catch {
-        addToast({ title: "We couldn't save your profile. Try again.", variant: 'error' });
+        addToast({ title: "We couldn't save your profile. Try again.", variant: 'danger' });
       } finally {
         setIsSaving(false);
       }
