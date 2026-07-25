@@ -17,7 +17,9 @@ import {
   Mail,
   Globe,
   Lock,
-  User
+  User,
+  BarChart2,
+  LineChart
 } from 'lucide-react';
 import { ContentWrapper } from '@/layouts';
 import { Card, Button, Input, PageTransition } from '@/components';
@@ -48,6 +50,7 @@ export function AffiliateManager() {
   const { addToast } = useUIStore();
   const navigate = useNavigate();
   const [chartTab, setChartTab] = useState('Monthly');
+  const [chartType, setChartType] = useState<'line' | 'bar'>('line');
 
   const mockData = useMemo(() => {
     switch (chartTab) {
@@ -129,18 +132,38 @@ export function AffiliateManager() {
                   <div className="text-2xl font-extrabold text-gray-900 mt-1">${totalEarnings.toLocaleString()}</div>
                   <div className="text-xs text-gray-500 mt-1">Total Earnings {chartTab}</div>
                 </div>
-                <div className="flex bg-gray-100 p-1 rounded-lg">
-                  {['Daily', 'Weekly', 'Monthly', 'Custom'].map(tab => (
+                <div className="flex items-center gap-3">
+                  {/* Chart Type Toggle */}
+                  <div className="flex bg-gray-100 p-1 rounded-lg">
                     <button
-                      key={tab}
-                      onClick={() => setChartTab(tab)}
-                      className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
-                        chartTab === tab ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
-                      }`}
+                      onClick={() => setChartType('line')}
+                      className={`p-1.5 rounded-md transition-colors ${chartType === 'line' ? 'bg-white text-primary-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                      title="Line Chart"
                     >
-                      {tab}
+                      <LineChart className="w-4 h-4" />
                     </button>
-                  ))}
+                    <button
+                      onClick={() => setChartType('bar')}
+                      className={`p-1.5 rounded-md transition-colors ${chartType === 'bar' ? 'bg-white text-primary-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                      title="Bar Chart"
+                    >
+                      <BarChart2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                  {/* Time Range Tabs */}
+                  <div className="flex bg-gray-100 p-1 rounded-lg">
+                    {['Daily', 'Weekly', 'Monthly', 'Custom'].map(tab => (
+                      <button
+                        key={tab}
+                        onClick={() => setChartTab(tab)}
+                        className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+                          chartTab === tab ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+                        }`}
+                      >
+                        {tab}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -166,41 +189,56 @@ export function AffiliateManager() {
                       ))}
                     </div>
                     
-                    {/* SVG Line & Area */}
-                    <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full z-10 pointer-events-none">
-                      <defs>
-                        <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#f97316" stopOpacity="0.2" />
-                          <stop offset="100%" stopColor="#f97316" stopOpacity="0" />
-                        </linearGradient>
-                      </defs>
-                      <polygon
-                        fill="url(#chartGradient)"
-                        points={`0,100 ${mockData.map((val, i) => `${(i / (mockData.length - 1)) * 100},${100 - (val / maxDataValue) * 100}`).join(' ')} 100,100`}
-                      />
-                      <polyline
-                        fill="none"
-                        stroke="#f97316"
-                        strokeWidth="2"
-                        vectorEffect="non-scaling-stroke"
-                        points={mockData.map((val, i) => `${(i / (mockData.length - 1)) * 100},${100 - (val / maxDataValue) * 100}`).join(' ')}
-                      />
-                    </svg>
+                    {/* SVG Line & Area OR Bar Chart */}
+                    {chartType === 'line' ? (
+                      <>
+                        <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full z-10 pointer-events-none">
+                          <defs>
+                            <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="0%" stopColor="#f97316" stopOpacity="0.2" />
+                              <stop offset="100%" stopColor="#f97316" stopOpacity="0" />
+                            </linearGradient>
+                          </defs>
+                          <polygon
+                            fill="url(#chartGradient)"
+                            points={`0,100 ${mockData.map((val, i) => `${(i / (mockData.length - 1)) * 100},${100 - (val / maxDataValue) * 100}`).join(' ')} 100,100`}
+                          />
+                          <polyline
+                            fill="none"
+                            stroke="#f97316"
+                            strokeWidth="2"
+                            vectorEffect="non-scaling-stroke"
+                            points={mockData.map((val, i) => `${(i / (mockData.length - 1)) * 100},${100 - (val / maxDataValue) * 100}`).join(' ')}
+                          />
+                        </svg>
 
-                    {/* Data Points (Dots) */}
-                    <div className="absolute inset-0 z-20">
-                      {mockData.map((val, i) => (
-                        <div 
-                          key={i} 
-                          className="absolute w-2 h-2 rounded-full bg-primary-500 border border-white -ml-1 -mb-1 shadow-sm transition-transform hover:scale-150 cursor-pointer"
-                          style={{
-                            left: `${(i / (mockData.length - 1)) * 100}%`,
-                            bottom: `${(val / maxDataValue) * 100}%`
-                          }}
-                          title={`$${val}`}
-                        />
-                      ))}
-                    </div>
+                        {/* Data Points (Dots) */}
+                        <div className="absolute inset-0 z-20">
+                          {mockData.map((val, i) => (
+                            <div 
+                              key={i} 
+                              className="absolute w-2 h-2 rounded-full bg-primary-500 border border-white -ml-1 -mb-1 shadow-sm transition-transform hover:scale-150 cursor-pointer"
+                              style={{
+                                left: `${(i / (mockData.length - 1)) * 100}%`,
+                                bottom: `${(val / maxDataValue) * 100}%`
+                              }}
+                              title={`$${val}`}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="absolute inset-0 flex items-end justify-between px-2 z-20">
+                        {mockData.map((val, i) => (
+                          <div
+                            key={i}
+                            className="w-full mx-[2px] bg-primary-500 hover:bg-primary-600 transition-all rounded-t-sm cursor-pointer"
+                            style={{ height: `${(val / maxDataValue) * 100}%` }}
+                            title={`$${val}`}
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
 
