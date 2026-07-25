@@ -1,14 +1,25 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Search, RefreshCw } from 'lucide-react';
 import { ContentWrapper } from '@/layouts';
 import { Card, PageTransition, Input, Select } from '@/components';
 
 export function ReferralsCommission() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const initialStatus = searchParams.get('status') || '';
+
   const [search, setSearch] = useState('');
-  const [status, setStatus] = useState('');
-  const [selectedMonth, setSelectedMonth] = useState('2026-06'); // Default to Jun-2026 as per screenshot
+  const [status, setStatus] = useState(initialStatus);
+  const [selectedMonth, setSelectedMonth] = useState('');
+
+  // Update status if URL parameter changes
+  useEffect(() => {
+    const urlStatus = searchParams.get('status');
+    if (urlStatus) {
+      setStatus(urlStatus);
+    }
+  }, [searchParams]);
 
   const statusOptions = [
     { label: 'Commission Status', value: '' },
@@ -68,9 +79,10 @@ export function ReferralsCommission() {
               />
               <Input 
                 type="month"
+                placeholder="Select By Month"
                 value={selectedMonth}
                 onChange={(e) => setSelectedMonth(e.target.value)}
-                className="w-full sm:w-40 h-10 bg-white"
+                className="w-full sm:w-48 h-10 bg-white"
               />
             </div>
           </div>
