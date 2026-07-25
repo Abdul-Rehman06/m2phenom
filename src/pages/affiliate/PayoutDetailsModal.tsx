@@ -50,7 +50,7 @@ export function PayoutDetailsModal() {
       </div>
 
       {/* Form Fields Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5 mb-8">
         <div>
           <label className="block text-xs font-bold text-gray-900 mb-1.5">Email Address</label>
           <Input defaultValue="ali_024@gmail.com" className="bg-white border-gray-200 shadow-sm" />
