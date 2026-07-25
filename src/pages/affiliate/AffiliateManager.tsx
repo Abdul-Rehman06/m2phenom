@@ -115,7 +115,7 @@ export function AffiliateManager() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           <StatCard title="Clicks" value="0" subtitle="Total Clicks" icon={MousePointerClick} trend="0%" onClick={() => navigate(ROUTES.AFFILIATE_CLICKS)} clickable />
           <StatCard title="Subscriptions" value="0" subtitle="Total Purchased Subscriptions" icon={ShoppingCart} trend="0%" onClick={() => navigate(ROUTES.AFFILIATE_COMMISSIONS)} clickable />
-          <StatCard title="Total Referrals" value="0" subtitle="Total Referrals" icon={Users} trend="0%" />
+          <StatCard title="Total Referrals" value="0" subtitle="Total Referrals" icon={Users} trend="0%" onClick={() => navigate(ROUTES.AFFILIATE_REFERRALS)} clickable />
           <StatCard title="Total Commission" value="$0" subtitle="Total Commission" icon={DollarSign} trend="0%" />
           <StatCard title="Paid Commission" value="$0" subtitle="Paid Commission" icon={CheckCircle} trend="0%" />
         </div>

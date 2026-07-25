@@ -37,6 +37,7 @@ import { AffiliateManager } from '@/pages/affiliate/AffiliateManager';
 import { ClickDetails } from '@/pages/affiliate/ClickDetails';
 import { PlatformClickStats } from '@/pages/affiliate/PlatformClickStats';
 import { ReferralsCommission } from '@/pages/affiliate/ReferralsCommission';
+import { TotalReferrals } from '@/pages/affiliate/TotalReferrals';
 
 // Root wrapper to provide Router context to global overlays
 function RootWrapper() {
@@ -294,6 +295,13 @@ const generatedRoutes = Object.keys(ROUTE_NAMES).map((path) => {
     return {
       path: cleanPath,
       element: <ReferralsCommission />,
+    };
+  }
+
+  if (path === ROUTES.AFFILIATE_REFERRALS) {
+    return {
+      path: cleanPath,
+      element: <TotalReferrals />,
     };
   }
 
