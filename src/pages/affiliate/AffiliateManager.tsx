@@ -274,7 +274,11 @@ export function AffiliateManager() {
                   <div className="text-[10px] text-primary-600 font-bold bg-primary-50 inline-block px-1.5 py-0.5 rounded">0%</div>
                 </div>
                 <div className="mt-6">
-                  <Button variant="outline" className="w-full text-xs font-semibold">
+                  <Button 
+                    variant="outline" 
+                    className="w-full text-xs font-semibold"
+                    onClick={() => navigate(`${ROUTES.AFFILIATE_COMMISSIONS}?status=paid`)}
+                  >
                     View Payout History
                   </Button>
                 </div>
@@ -286,7 +290,7 @@ export function AffiliateManager() {
                   <div className="flex items-center gap-2 text-sm font-bold text-gray-900">
                     <Users className="w-4 h-4 text-primary-500" /> Recent Referrals
                   </div>
-                  <Button variant="outline" className="text-xs py-1 h-auto">View All</Button>
+                  <Button variant="outline" className="text-xs py-1 h-auto" onClick={() => navigate(ROUTES.AFFILIATE_REFERRALS)}>View All</Button>
                 </div>
                 <div className="flex-1 flex flex-col items-center justify-center text-center">
                   <div className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center mb-3">
