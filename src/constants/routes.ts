@@ -56,6 +56,7 @@ export const ROUTES = {
     SCHEDULE: '/training-support/live-training-schedule',
   },
   TESTIMONIALS: '/testimonials',
+  AFFILIATE: '/affiliate-manager',
 } as const;
 
 export const ROUTE_NAMES: Record<string, string> = {
@@ -106,4 +107,5 @@ export const ROUTE_NAMES: Record<string, string> = {
   [ROUTES.TRAINING.SCHEDULE]: 'Live Training Schedule',
 
   [ROUTES.TESTIMONIALS]: 'Metro2 Success Testimonials',
+  [ROUTES.AFFILIATE]: 'Affiliate Program',
 };

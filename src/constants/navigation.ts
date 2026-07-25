@@ -8,6 +8,7 @@ import {
   Zap,
   Video,
   Star,
+  Share2,
 } from 'lucide-react';
 import { ROUTES } from './routes';
 
@@ -109,6 +110,11 @@ export const SIDEBAR_NAV: NavItem[] = [
       { title: 'Join Community', path: ROUTES.TRAINING.COMMUNITY },
       { title: 'Live Training Schedule', path: ROUTES.TRAINING.SCHEDULE },
     ],
+  },
+  {
+    title: 'Affiliate Program',
+    icon: Share2,
+    path: ROUTES.AFFILIATE,
   },
   {
     title: 'Metro2 Success Testimonials',
