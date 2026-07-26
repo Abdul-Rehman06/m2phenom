@@ -1,5 +1,6 @@
 export const ROUTES = {
-  HOME: '/',
+  PUBLIC_LANDING: '/',
+  HOME: '/dashboard',
   GET_STARTED: {
     ROOT: '/get-started',
     SELECT_SUBSCRIPTION: '/get-started/select-subscription',
@@ -70,7 +71,8 @@ export const ROUTES = {
 } as const;
 
 export const ROUTE_NAMES: Record<string, string> = {
-  [ROUTES.HOME]: 'Home',
+  [ROUTES.PUBLIC_LANDING]: 'Welcome to M2 Phenom',
+  [ROUTES.HOME]: 'Dashboard',
   
   [ROUTES.GET_STARTED.ROOT]: 'Get Started',
   [ROUTES.GET_STARTED.SELECT_SUBSCRIPTION]: 'Select Subscription',

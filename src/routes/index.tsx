@@ -50,6 +50,8 @@ import { ClientLetters } from '@/pages/client-portal/letters/ClientLetters';
 
 import { ClientOnboarding } from '@/pages/client-portal/onboarding/ClientOnboarding';
 
+import { LandingPage } from '@/pages/public/LandingPage';
+
 // Root wrapper to provide Router context to global overlays
 function RootWrapper() {
   return (
@@ -97,7 +99,7 @@ function PlaceholderPage() {
 
 // Generate route objects dynamically from the ROUTE_NAMES dictionary
 const generatedRoutes = Object.keys(ROUTE_NAMES)
-  .filter(path => !path.startsWith('/client/'))
+  .filter(path => !path.startsWith('/client/') && path !== ROUTES.PUBLIC_LANDING)
   .map((path) => {
   const cleanPath = path === '/' ? undefined : path.replace(/^\//, '');
 
@@ -318,17 +320,15 @@ const generatedRoutes = Object.keys(ROUTE_NAMES)
     };
   }
 
-  if (path === ROUTES.HOME || path === '/') {
+  if (path === ROUTES.HOME) {
     return {
       path: cleanPath,
-      index: path === '/',
       element: <Home />,
     };
   }
 
   return {
     path: cleanPath,
-    index: path === '/',
     element: <PlaceholderPage />,
   };
 });
@@ -337,6 +337,15 @@ const router = createBrowserRouter([
   {
     element: <RootWrapper />,
     children: [
+      // Public Landing Page
+      {
+        path: '/',
+        element: (
+          <PageTransition>
+            <LandingPage />
+          </PageTransition>
+        )
+      },
       // Public Authentication Routes
       {
         path: '/auth',
