@@ -1,93 +1,84 @@
 import { useNavigate } from 'react-router-dom';
-import { Eye, User } from 'lucide-react';
+import { Eye, User, Lock, Settings, Zap } from 'lucide-react';
 import { ROUTES } from '@/constants';
 
 export function PpamsLogin() {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center p-4">
-      {/* Central Login Container */}
-      <div className="relative flex flex-col items-center w-full max-w-md mt-16 sm:mt-8">
+    <div className="w-full max-w-[440px] p-4">
+      <div className="w-full bg-white/90 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] p-8 sm:p-10 border border-white backdrop-blur-xl relative overflow-hidden">
         
-        {/* Einstein Logo (Absolute positioned to overlay top) */}
-        <div className="absolute -top-32 sm:-top-40 z-20 flex justify-center w-full drop-shadow-2xl">
-          <img 
-            src="https://prodigysurge.com/images/prodigysurge_logo.png" 
-            alt="ProdigySurge" 
-            className="w-64 sm:w-80 h-auto object-contain"
-            onError={(e) => {
-              // Fallback placeholder if actual logo image link isn't available/correct
-              e.currentTarget.src = "https://ui-avatars.com/api/?name=Prodigy+Surge&background=ff7a00&color=fff&size=256&rounded=true&bold=true";
-            }}
-          />
-        </div>
+        {/* Subtle top glare/gradient for that 3D card feel */}
+        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white to-transparent opacity-80 pointer-events-none z-0"></div>
 
-        {/* Login Form Card */}
-        <div className="w-full pt-32 pb-8 px-6 sm:px-10 rounded-[2rem] border border-white/20 shadow-2xl backdrop-blur-md bg-black/40 relative z-10 mt-16">
-          <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); navigate(ROUTES.PPAMS.DASHBOARD); }}>
+        <div className="relative z-10">
+          {/* Logo Section */}
+          <div className="flex flex-col items-center justify-center mb-8">
+            <div className="relative flex items-center justify-center w-16 h-16 mb-2">
+              <Settings className="w-12 h-12 text-slate-400 absolute animate-[spin_10s_linear_infinite]" strokeWidth={1.5} />
+              <Zap className="w-6 h-6 text-orange-500 relative z-10 fill-orange-500" strokeWidth={1} />
+            </div>
+            <h1 className="text-3xl font-black text-[#1e293b] tracking-tight flex items-center">
+              ProdigySurge<span className="text-orange-500 text-2xl">.com</span>
+            </h1>
+          </div>
+
+          {/* Divider */}
+          <div className="flex items-center gap-4 mb-8 opacity-60">
+            <div className="flex-1 h-px bg-slate-300"></div>
+            <span className="text-xs text-slate-500 font-medium tracking-wide">Secure Access Portal</span>
+            <div className="flex-1 h-px bg-slate-300"></div>
+          </div>
+
+          <form className="space-y-5" onSubmit={(e) => { e.preventDefault(); navigate(ROUTES.PPAMS.DASHBOARD); }}>
             
-            {/* Username Input */}
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <User className="h-5 w-5 text-gray-400" />
+            {/* Email Input */}
+            <div className="relative group">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <User className="h-5 w-5 text-orange-500 group-focus-within:text-orange-600 transition-colors" strokeWidth={1.5} />
               </div>
               <input 
                 type="text" 
-                className="w-full pl-10 pr-3 py-3 rounded-full bg-white/90 border-0 focus:ring-2 focus:ring-orange-500 text-black font-medium placeholder-gray-500 shadow-inner transition-all" 
-                placeholder="Username / Email"
-                defaultValue="ALI BAHI ppams"
+                className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 text-slate-800 font-medium placeholder-slate-400 transition-all outline-none" 
+                placeholder="Email Address"
               />
             </div>
 
             {/* Password Input */}
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span className="text-gray-400 font-bold tracking-widest pl-1">***</span>
+            <div className="relative group">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <Lock className="h-5 w-5 text-orange-500 group-focus-within:text-orange-600 transition-colors" strokeWidth={1.5} />
               </div>
               <input 
                 type="password" 
-                className="w-full pl-12 pr-10 py-3 rounded-full bg-white/90 border-0 focus:ring-2 focus:ring-orange-500 text-black font-medium placeholder-gray-500 shadow-inner transition-all" 
+                className="w-full pl-12 pr-12 py-3.5 rounded-xl border border-slate-200 bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 text-slate-800 font-medium placeholder-slate-400 transition-all outline-none" 
                 placeholder="Password"
-                defaultValue="password123"
               />
-              <div className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer hover:text-orange-500 text-gray-600 transition-colors">
-                <Eye className="h-5 w-5" />
+              <div className="absolute inset-y-0 right-0 pr-4 flex items-center cursor-pointer text-slate-400 hover:text-slate-600 transition-colors">
+                <Eye className="h-5 w-5" strokeWidth={1.5} />
               </div>
             </div>
 
             {/* Login Button */}
-            <button
-              type="submit"
-              className="w-full py-3 mt-2 rounded-full bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-bold text-sm uppercase tracking-wider shadow-[0_0_15px_rgba(249,115,22,0.5)] transition-all hover:scale-[1.02] active:scale-[0.98]"
-            >
-              LOGIN NOW
-            </button>
-
-            {/* Register Button */}
-            <button
-              type="button"
-              className="w-full py-3 rounded-full bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-bold text-sm uppercase tracking-wider shadow-[0_0_15px_rgba(249,115,22,0.5)] transition-all hover:scale-[1.02] active:scale-[0.98] opacity-90"
-            >
-              REGISTER NOW
-            </button>
-
-            {/* Forgot Password Link */}
-            <div className="text-center mt-4">
-              <a href="#" className="text-blue-300 hover:text-blue-200 text-xs font-medium underline transition-colors">
-                Forgot/Reset Password
-              </a>
+            <div className="pt-2">
+              <button
+                type="submit"
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-bold text-sm uppercase tracking-widest shadow-[0_8px_20px_rgba(249,115,22,0.3)] transition-all hover:-translate-y-0.5 active:translate-y-0"
+              >
+                LOGIN NOW
+              </button>
             </div>
-          </form>
-        </div>
-      </div>
 
-      {/* Footer Text */}
-      <div className="absolute bottom-6 text-center w-full z-10 space-y-1">
-        <p className="text-gray-400 text-xs">© {new Date().getFullYear()} Prodigysurge All Rights Reserved</p>
-        <p className="text-orange-500 font-bold text-lg tracking-wide uppercase drop-shadow-md">
-          Powered by <span className="text-white">EPIC PRO REPORT</span>
-        </p>
+          </form>
+
+          {/* Footer Text */}
+          <div className="mt-8 text-center flex items-center justify-center gap-2 text-xs font-medium text-slate-400">
+            <span className="text-orange-500">•</span>
+            Powered by <span className="text-orange-500 font-bold">EPIC PRO REPORT</span>
+            <span className="text-orange-500">•</span>
+          </div>
+        </div>
       </div>
     </div>
   );
