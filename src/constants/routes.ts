@@ -67,7 +67,12 @@ export const ROUTES = {
     ACCOUNT: '/client/account',
     LETTERS: '/client/letters',
     ONBOARDING: '/client/onboarding',
-  }
+  },
+  PPAMS: {
+    ROOT: '/ppams',
+    LOGIN: '/ppams/login',
+    DASHBOARD: '/ppams/dashboard',
+  },
 } as const;
 
 export const ROUTE_NAMES: Record<string, string> = {
@@ -129,4 +134,8 @@ export const ROUTE_NAMES: Record<string, string> = {
   [ROUTES.CLIENT_PORTAL.ACCOUNT]: 'Account',
   [ROUTES.CLIENT_PORTAL.LETTERS]: 'Retrieve Your Letters',
   [ROUTES.CLIENT_PORTAL.ONBOARDING]: 'Welcome Setup',
+
+  [ROUTES.PPAMS.ROOT]: 'PPAMS',
+  [ROUTES.PPAMS.LOGIN]: 'PPAMS Login',
+  [ROUTES.PPAMS.DASHBOARD]: 'PPAMS Dashboard',
 };

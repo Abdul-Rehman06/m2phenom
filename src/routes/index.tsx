@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, useLocation, Outlet } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, useLocation, Outlet, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { AppLayout, AuthLayout, ContentWrapper, PageHeader } from '@/layouts';
 import { ProtectedRoute, PageTransition, CommandPalette, GlobalModal, GlobalDrawer, ConfirmationDialog, ToastContainer } from '@/components';
@@ -52,6 +52,11 @@ import { ClientOnboarding } from '@/pages/client-portal/onboarding/ClientOnboard
 
 import { LandingPage } from '@/pages/public/LandingPage';
 
+import { PpamsAuthLayout } from '@/layouts/ppams/PpamsAuthLayout';
+import { PpamsLayout } from '@/layouts/ppams/PpamsLayout';
+import { PpamsLogin } from '@/pages/ppams/auth/PpamsLogin';
+import { PpamsDashboard } from '@/pages/ppams/dashboard/PpamsDashboard';
+
 // Root wrapper to provide Router context to global overlays
 function RootWrapper() {
   return (
@@ -99,7 +104,7 @@ function PlaceholderPage() {
 
 // Generate route objects dynamically from the ROUTE_NAMES dictionary
 const generatedRoutes = Object.keys(ROUTE_NAMES)
-  .filter(path => !path.startsWith('/client/') && path !== ROUTES.PUBLIC_LANDING)
+  .filter(path => !path.startsWith('/client/') && !path.startsWith('/ppams') && path !== ROUTES.PUBLIC_LANDING)
   .map((path) => {
   const cleanPath = path === '/' ? undefined : path.replace(/^\//, '');
 
@@ -405,6 +410,37 @@ const router = createBrowserRouter([
                 <ClientResetPassword />
               </PageTransition>
             )
+          }
+        ]
+      },
+      {
+        path: '/ppams',
+        children: [
+          {
+            element: <PpamsAuthLayout />,
+            children: [
+              {
+                path: 'login',
+                element: (
+                  <PageTransition>
+                    <PpamsLogin />
+                  </PageTransition>
+                )
+              }
+            ]
+          },
+          {
+            element: <PpamsLayout />,
+            children: [
+              {
+                index: true,
+                element: <Navigate to="dashboard" replace />
+              },
+              {
+                path: 'dashboard',
+                element: <PpamsDashboard />
+              }
+            ]
           }
         ]
       },
