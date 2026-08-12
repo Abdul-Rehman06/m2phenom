@@ -72,6 +72,7 @@ export const ROUTES = {
     ROOT: '/ppams',
     LOGIN: '/ppams/login',
     DASHBOARD: '/ppams/dashboard',
+    AREA: '/ppams/area',
   },
 } as const;
 
@@ -138,4 +139,5 @@ export const ROUTE_NAMES: Record<string, string> = {
   [ROUTES.PPAMS.ROOT]: 'PPAMS',
   [ROUTES.PPAMS.LOGIN]: 'PPAMS Login',
   [ROUTES.PPAMS.DASHBOARD]: 'PPAMS Dashboard',
+  [ROUTES.PPAMS.AREA]: 'PPAMS Area',
 };

@@ -15,9 +15,8 @@ export function PpamsLogin() {
         <div className="relative z-10">
           {/* Logo Section */}
           <div className="flex flex-col items-center justify-center mb-8">
-            <div className="relative flex items-center justify-center w-16 h-16 mb-2">
-              <Settings className="w-12 h-12 text-slate-400 absolute animate-[spin_10s_linear_infinite]" strokeWidth={1.5} />
-              <Zap className="w-6 h-6 text-orange-500 relative z-10 fill-orange-500" strokeWidth={1} />
+            <div className="relative flex items-center justify-center w-35 h-16 mb-2">
+             <img src="/public/header-logo.jpg" alt="" className="w-full h-fulll" />
             </div>
             <h1 className="text-3xl font-black text-[#1e293b] tracking-tight flex items-center">
               ProdigySurge<span className="text-orange-500 text-2xl">.com</span>

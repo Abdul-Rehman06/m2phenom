@@ -52,10 +52,11 @@ import { ClientOnboarding } from '@/pages/client-portal/onboarding/ClientOnboard
 
 import { LandingPage } from '@/pages/public/LandingPage';
 
-import { PpamsAuthLayout } from '@/layouts/ppams/PpamsAuthLayout';
 import { PpamsLayout } from '@/layouts/ppams/PpamsLayout';
+import { PpamsAuthLayout } from '@/layouts/ppams/PpamsAuthLayout';
 import { PpamsLogin } from '@/pages/ppams/auth/PpamsLogin';
 import { PpamsDashboard } from '@/pages/ppams/dashboard/PpamsDashboard';
+import { PpamsArea } from '@/pages/ppams/area/PpamsArea';
 
 // Root wrapper to provide Router context to global overlays
 function RootWrapper() {
@@ -439,6 +440,10 @@ const router = createBrowserRouter([
               {
                 path: 'dashboard',
                 element: <PpamsDashboard />
+              },
+              {
+                path: 'area',
+                element: <PpamsArea />
               }
             ]
           }
