@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Eye, User, Lock, Settings, Zap } from 'lucide-react';
+import { Eye, User, Lock } from 'lucide-react';
 import { ROUTES } from '@/constants';
 
 export function PpamsLogin() {
@@ -16,7 +16,7 @@ export function PpamsLogin() {
           {/* Logo Section */}
           <div className="flex flex-col items-center justify-center mb-8">
             <div className="relative flex items-center justify-center w-35 h-16 mb-2">
-             <img src="/public/header-logo.jpg" alt="" className="w-full h-fulll" />
+             <img src="/header-logo.jpg" alt="" className="w-full h-full" />
             </div>
             <h1 className="text-3xl font-black text-[#1e293b] tracking-tight flex items-center">
               ProdigySurge<span className="text-orange-500 text-2xl">.com</span>
@@ -82,4 +82,3 @@ export function PpamsLogin() {
     </div>
   );
 }
-

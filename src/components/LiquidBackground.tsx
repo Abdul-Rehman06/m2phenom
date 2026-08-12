@@ -97,7 +97,9 @@ export const LiquidBackground: React.FC = () => {
                 {blobsData.map((data, index) => (
                     <div
                         key={index}
-                        ref={(el) => (blobRefs.current[index] = el)}
+                        ref={(el) => {
+                            blobRefs.current[index] = el;
+                        }}
                         className="liquid-blob"
                         style={{
                             width: `${data.size}px`,

@@ -41,7 +41,10 @@ const SupportRequestsPieChart = () => {
 
             const a1 = pt(mid, R + 6);
             const a2 = pt(mid, R + 30);
-            let leaderPath, tx, ty, anchor;
+            let leaderPath = '';
+            let tx = 0;
+            let ty = 0;
+            let anchor: 'start' | 'middle' | 'end' = 'middle';
 
             if (d.dir === "right") {
               tx = a2.x + 30; ty = a2.y; anchor = "start";
@@ -410,4 +413,3 @@ export function PpamsDashboard() {
     </PageTransition>
   );
 }
-
