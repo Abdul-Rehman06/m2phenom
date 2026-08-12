@@ -6,8 +6,8 @@ export function PpamsLogin() {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full max-w-[440px] p-4">
-      <div className="w-full bg-white/90 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] p-8 sm:p-10 border border-white backdrop-blur-xl relative overflow-hidden">
+    <div className="w-full h-full flex flex-col items-center justify-center min-h-[calc(100vh-2rem)] mx-auto p-4">
+      <div className="w-full max-w-[440px] bg-white/90 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] p-8 sm:p-10 border border-white backdrop-blur-xl relative overflow-hidden">
         
         {/* Subtle top glare/gradient for that 3D card feel */}
         <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white to-transparent opacity-80 pointer-events-none z-0"></div>

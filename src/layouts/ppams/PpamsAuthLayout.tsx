@@ -3,10 +3,11 @@ import { LiquidBackground } from '@/components/LiquidBackground';
 
 export function PpamsAuthLayout() {
   return (
-    <div className="min-h-screen w-full flex items-center justify-center relative overflow-hidden bg-slate-50">
+    <div className="min-h-screen w-full relative overflow-hidden bg-slate-50">
       <LiquidBackground />
 
-      <div className="w-full h-full relative z-10 pointer-events-auto flex items-center justify-center">
+      {/* Absolute positioning ensures this wrapper covers the whole screen, allowing perfect flex centering */}
+      <div className="absolute inset-0 z-10 flex items-center justify-center overflow-y-auto p-4">
         <Outlet />
       </div>
     </div>

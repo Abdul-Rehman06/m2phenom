@@ -51,13 +51,13 @@ export const LiquidBackground: React.FC = () => {
                 
                 .liquid-blob {
                     position: absolute;
-                    background: var(--mercury-light);
+                    background: linear-gradient(135deg, #f97316, #ea580c); /* Orange matching the brand */
                     border-radius: 50%;
                     filter: blur(15px);
                     animation: float-light 25s infinite alternate ease-in-out;
                     box-shadow: 
-                        inset -10px -10px 30px rgba(0, 0, 0, 0.03),
-                        10px 10px 40px rgba(249, 115, 22, 0.08); /* Subtle orange glow matching the theme */
+                        inset -10px -10px 30px rgba(0, 0, 0, 0.1),
+                        10px 10px 40px rgba(249, 115, 22, 0.5); /* Orange glow */
                     transition: transform 0.1s ease-out;
                 }
                 
