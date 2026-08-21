@@ -26,6 +26,7 @@ import { ImportClient } from '@/pages/users/ImportClient';
 import { CompletedLetters } from '@/pages/attacks/CompletedLetters';
 import { AIGenerator } from '@/pages/attacks/AIGenerator';
 import { PowerUserGenerator } from '@/pages/attacks/PowerUserGenerator';
+import { CommunicationInbox } from '@/pages/communication/CommunicationInbox';
 import { TextMessages } from '@/pages/communication/TextMessages';
 import { EmailCommunication } from '@/pages/communication/EmailCommunication';
 import { SupportTicket } from '@/pages/communication/SupportTicket';
@@ -239,6 +240,13 @@ const generatedRoutes = Object.keys(ROUTE_NAMES)
     return {
       path: cleanPath,
       element: <PowerUserGenerator />,
+    };
+  }
+
+  if (path === ROUTES.COMMUNICATION.ROOT) {
+    return {
+      path: cleanPath,
+      element: <CommunicationInbox />,
     };
   }
 

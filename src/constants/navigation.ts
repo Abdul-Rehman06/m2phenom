@@ -81,8 +81,7 @@ export const SIDEBAR_NAV: NavItem[] = [
     icon: MessageSquare,
     badge: 2,
     children: [
-      { title: 'Text Messages', path: ROUTES.COMMUNICATION.TEXT_MESSAGES },
-      { title: 'Email Communication', path: ROUTES.COMMUNICATION.EMAIL },
+      { title: 'Inbox', path: ROUTES.COMMUNICATION.ROOT },
       { title: 'Submit Support Ticket', path: ROUTES.COMMUNICATION.SUPPORT_TICKET },
       { title: 'PPAMS Invoice', path: ROUTES.COMMUNICATION.INVOICE },
       {
